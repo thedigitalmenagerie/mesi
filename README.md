@@ -12,6 +12,8 @@ The need for this application became clear when I read Eve Rodsky's Fair Play. U
 
 https://www.figma.com/file/qg0EsNRwVI2BW9OfAf3ksF/MESI-Wireframe?node-id=0%3A1
 
+![image](https://user-images.githubusercontent.com/76716670/144719193-f46b5d10-340b-4bac-88db-975cfcfa6939.png)
+
 
 ### Flow Chart
 
@@ -19,6 +21,8 @@ https://www.figma.com/file/qg0EsNRwVI2BW9OfAf3ksF/MESI-Wireframe?node-id=0%3A1
 ### ERD:
 
 https://dbdiagram.io/d/61a9440a8c901501c0de3d05
+
+![MESI](https://user-images.githubusercontent.com/76716670/144719066-f932ed47-2997-4ddf-aae1-5b407623c575.png)
 
 
 ### Link to the deployed project:
