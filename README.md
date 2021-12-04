@@ -17,6 +17,7 @@ https://www.figma.com/file/qg0EsNRwVI2BW9OfAf3ksF/MESI-Wireframe?node-id=0%3A1
 
 ### Flow Chart
 
+https://lucid.app/lucidchart/b7c3fcf2-5a14-426d-9b91-1d48ba811e2d/edit?invitationId=inv_1f8f4aef-6a5c-4b0d-9d89-da4212a64e34
 
 ### ERD:
 
