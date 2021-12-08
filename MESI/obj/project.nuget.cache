@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "5F92ntchXh8RJrCd/qxcZQ3wF5CFsekZomlHlVyeiTERwKQTsoyLA4Tp1q6cv3buAVqObtdsAHhnyiFNibPUHA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\honey\\source\\repos\\MESI\\mesi\\MESI\\MESI\\MESI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\honey\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\honey\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\honey\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
+    "C:\\Users\\honey\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
+    "C:\\Users\\honey\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "C:\\Users\\honey\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
+  ],
+  "logs": []
+}

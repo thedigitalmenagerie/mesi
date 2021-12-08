@@ -1,0 +1,305 @@
+USE [master]
+GO
+/****** Object:  Database [MESI]  ******/
+CREATE DATABASE [MESI]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'MESI', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\MESI.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'MESI_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL15.MSSQLSERVER\MSSQL\DATA\MESI_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+ALTER DATABASE [MESI] SET COMPATIBILITY_LEVEL = 150
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [MESI].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [MESI] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [MESI] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [MESI] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [MESI] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [MESI] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [MESI] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [MESI] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [MESI] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [MESI] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [MESI] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [MESI] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [MESI] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [MESI] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [MESI] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [MESI] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [MESI] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [MESI] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [MESI] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [MESI] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [MESI] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [MESI] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [MESI] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [MESI] SET RECOVERY FULL 
+GO
+ALTER DATABASE [MESI] SET  MULTI_USER 
+GO
+ALTER DATABASE [MESI] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [MESI] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [MESI] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [MESI] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [MESI] SET DELAYED_DURABILITY = DISABLED 
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'MESI', N'ON'
+GO
+ALTER DATABASE [MESI] SET QUERY_STORE = OFF
+GO
+USE [MESI]
+GO
+/****** Object:  UserDefinedFunction [dbo].[minimum] ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+create function [dbo].[minimum]
+(@param1 decimal, @param2 decimal)
+returns table
+return select case when @param1 < @param2	
+	then @param1 else @param2 end MinValue 
+GO
+/****** Object:  Table [dbo].[Steps] ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Steps](
+	[Id] [uniqueidentifier] NOT NULL,
+	[StepName] [varchar](25) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[NeedTypes]  ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[NeedTypes](
+	[Id] [uniqueidentifier] NOT NULL,
+	[NeedTypeName] [varchar](50) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[CategoryTypes]  ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[CategoryTypes](
+	[Id] [uniqueidentifier] NOT NULL,
+	[CategoryTypeName] [varchar](25) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Users]  ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Users](
+	[Id] [uniqueidentifier] NOT NULL,
+	[FirstName] [varchar](25) NOT NULL,
+	[LastName] [varchar](25) NOT NULL,
+	[ProfilePicture] [varchar](800) NOT NULL,
+	[Email] [varchar](50) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Households] ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Households](
+	[Id] [uniqueidentifier] NOT NULL,
+	[StepId] [uniqueidentifier] NOT NULL,
+	[HouseholdName] [varchar](50) NOT NULL,
+	[HasPets] [bit] NULL,
+	[HasKids] [bit]  NULL,
+	[HasRomance] [bit] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[HouseholdMembers] ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[HouseholdMembers](
+	[Id] [uniqueidentifier] NOT NULL,
+	[UserId] [uniqueidentifier] NOT NULL,
+	[HouseholdId] [uniqueidentifier] NOT NULL,
+	[CommunityAgreement] [bit] NULL,
+	[NewVow] [bit] NULL,
+	[Redeal] [bit] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Cards] ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Cards](
+	[Id] [uniqueidentifier] NOT NULL,
+	[HouseholdId] [uniqueidentifier] NOT NULL,
+	[AssignedUserId] [uniqueidentifier] NULL,
+	[NeedTypeId] [uniqueidentifier] NOT NULL,
+	[CategoryTypeId] [uniqueidentifier] NOT NULL,
+	[CardName] [varchar](50) NOT NULL,
+	[CardImage] [varchar](800) NOT NULL,
+	[CardDefinition] [varchar](1500) NOT NULL,
+	[Conception] [varchar](1500) NOT NULL,
+	[Planning] [varchar](1500) NOT NULL,
+	[Execution] [varchar](1500) NOT NULL,
+	[MSOC] [varchar](1500) NOT NULL,
+	[DailyGrind] [bit] NULL,	
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[UserValues] ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[UserValues](
+	[Id] [uniqueidentifier] NOT NULL,
+	[UserId] [uniqueidentifier] NOT NULL,
+	[HouseholdId] [uniqueidentifier] NOT NULL,
+	[CardId] [uniqueidentifier] NOT NULL,
+	[UserValues] [bit] NULL,
+	[UserDeletes] [bit] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[Steps] ADD  DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [dbo].[NeedTypes] ADD  DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [dbo].[CategoryTypes] ADD  DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [dbo].[Users] ADD  DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [dbo].[Households] ADD  DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [dbo].[HouseholdMembers] ADD  DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [dbo].[Cards] ADD  DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [dbo].[UserValues] ADD  DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [dbo].[UserValues] ADD  DEFAULT ((NULL)) FOR [UserValues]
+GO
+ALTER TABLE [dbo].[UserValues] ADD  DEFAULT ((NULL)) FOR [UserDeletes]
+GO
+ALTER TABLE [dbo].[HouseholdMembers]  WITH CHECK ADD  CONSTRAINT [FK_HouseholdMembers_Users] FOREIGN KEY([UserId])
+REFERENCES [dbo].[Users] ([Id])
+GO
+ALTER TABLE [dbo].[HouseholdMembers] CHECK CONSTRAINT [FK_HouseholdMembers_Users]
+GO
+ALTER TABLE [dbo].[HouseholdMembers] WITH CHECK ADD CONSTRAINT [FK_HouseholdMembers_Households] FOREIGN KEY ([HouseholdId])
+REFERENCES [dbo].[Households] ([Id])
+GO
+ALTER TABLE [dbo].[HouseholdMembers] CHECK CONSTRAINT [FK_HouseholdMembers_Households]
+GO
+ALTER TABLE [dbo].[Households]  WITH CHECK ADD  CONSTRAINT [FK_Households_Steps] FOREIGN KEY ([StepId])
+REFERENCES [dbo].[Steps] ([Id])
+GO
+ALTER TABLE [dbo].[Households] CHECK CONSTRAINT [FK_Households_Steps]
+GO
+ALTER TABLE [dbo].[Cards] WITH CHECK ADD CONSTRAINT [FK_Cards_Households] FOREIGN KEY ([HouseholdId])
+REFERENCES [dbo].[Households] ([Id])
+GO
+ALTER TABLE [dbo].[Cards] CHECK CONSTRAINT [FK_Cards_Households]
+GO
+ALTER TABLE [dbo].[Cards]  WITH CHECK ADD  CONSTRAINT [FK_Cards_Users] FOREIGN KEY([AssignedUserId])
+REFERENCES [dbo].[Users] ([Id])
+GO
+ALTER TABLE [dbo].[Cards] CHECK CONSTRAINT [FK_Cards_Users]
+GO
+ALTER TABLE [dbo].[Cards]  WITH CHECK ADD  CONSTRAINT [FK_Cards_NeedTypes] FOREIGN KEY([NeedTypeId])
+REFERENCES [dbo].[NeedTypes] ([Id])
+GO
+ALTER TABLE [dbo].[Cards] CHECK CONSTRAINT [FK_Cards_NeedTypes]
+GO
+ALTER TABLE [dbo].[Cards]  WITH CHECK ADD  CONSTRAINT [FK_Cards_CategoryTypes] FOREIGN KEY([CategoryTypeId])
+REFERENCES [dbo].[CategoryTypes] ([Id])
+GO
+ALTER TABLE [dbo].[Cards] CHECK CONSTRAINT [FK_Cards_CategoryTypes]
+GO
+ALTER TABLE [dbo].[UserValues]  WITH CHECK ADD  CONSTRAINT [FK_UserValues_Users] FOREIGN KEY([UserId])
+REFERENCES [dbo].[Users] ([Id])
+GO
+ALTER TABLE [dbo].[UserValues] CHECK CONSTRAINT [FK_UserValues_Users]
+GO
+ALTER TABLE [dbo].[UserValues]  WITH CHECK ADD  CONSTRAINT [FK_UserValues_Cards] FOREIGN KEY([CardId])
+REFERENCES [dbo].[Cards] ([Id])
+GO
+ALTER TABLE [dbo].[UserValues] CHECK CONSTRAINT [FK_UserValues_Cards]
+GO
+ALTER TABLE [dbo].[UserValues]  WITH CHECK ADD  CONSTRAINT [FK_UserValues_Households] FOREIGN KEY ([HouseholdId])
+REFERENCES [dbo].[Households] ([Id])
+GO
+ALTER TABLE [dbo].[UserValues] CHECK CONSTRAINT [FK_UserValues_Households]
+GO
+USE [master]
+GO
+ALTER DATABASE [MESI] SET  READ_WRITE 
+GO
