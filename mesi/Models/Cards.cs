@@ -1,16 +1,30 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace mesi.Models
 {
-    public class Cards : Controller
+    public class CardsWithDetail
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public Guid HHCardId { get; set; }
+        public Guid HouseholdId { get; set; }
+        public Guid NeedTypeId { get; set; }
+        public Guid CategoryTypeId { get; set; }
+        public string CardName { get; set; }
+        public string CardImage { get; set; }
+        public string CardDefinition { get; set; }
+        public string Conception { get; set; }
+        public string Planning { get; set; }
+        public string Execution { get; set; }
+        public string MSOC { get; set; }
+        public Boolean DailyGrind { get; set; }
+        public Boolean UserValues { get; set; }
+        public Boolean UserDeletes { get; set; }
+        public string StepName { get; set; }
+        public string FirstName { get; set; }
+        public string ProfilePicture { get; set; }
+        public string NeedTypeName { get; set; }
+        public string CategoryTypeName { get; set; }
     }
 }
