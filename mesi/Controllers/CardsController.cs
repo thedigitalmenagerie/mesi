@@ -9,7 +9,7 @@ using mesi.DataAccess;
 
 namespace mesi.Controllers
 {
-    [Route("api/cards/householddetaildash")]
+    [Route("api/dash")]
     [ApiController]
     public class CardsWithDetailController : ControllerBase
     {
@@ -20,15 +20,82 @@ namespace mesi.Controllers
             _cardsRepository = cardsRepo;
         }
 
-        [HttpGet("{householdId}")]
-        public IActionResult GetCardsByHouseholdId(Guid householdId, Guid userId)
+        [HttpGet("households/{householdId}")]
+        public IActionResult GetCardsByHouseholdId(Guid householdId)
         {
-            var result = _cardsRepository.GetCardsWithDetails(householdId, userId);
+            var result = _cardsRepository.GetCardsWithDetails(householdId);
             if (result != null)
             {
                 return Ok(result);
             }
-            else return NotFound($"{householdId} does not have any cards for {userId}");
+            else return NotFound($"{householdId} does not have any cards");
+        }
+
+        [HttpGet("cardswithdetail/{cardId}")]
+        public IActionResult GetSingleCardsByCardId(Guid cardId)
+        {
+            var result = _cardsRepository.GetSingleCardWithDetails(cardId);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else return NotFound($"No card with id {cardId}");
+        }
+
+        [HttpPost("cards/")]
+        public IActionResult CreateIndividualCard(Cards cards)
+        {
+            _cardsRepository.AddIndividualCard(cards);
+            return Created($"/api/dash/{cards.Id}", cards);
+        }
+
+        [HttpGet("cards/{id}")]
+        public IActionResult GetSingleCardByCardId(Guid id)
+        {
+            var result = _cardsRepository.GetSingleCard(id);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else return NotFound($"No card with id {id}");
+        }
+
+        [HttpGet("cardsByHH/{householdId}")]
+        public IActionResult GetCardByHHId(Guid householdId)
+        {
+            var result = _cardsRepository.GetSingleCardByHHId(householdId);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else return NotFound($"No card with id {householdId}");
+        }
+
+        [HttpPut("cards/{id}")]
+        public IActionResult UpdateIndividualCard(Guid id, Cards cards)
+        {
+            var cardToUpdate = _cardsRepository.GetSingleCard(id);
+
+            if (cardToUpdate == null)
+            {
+                return NotFound($"Could not find a category with the id {id} to update");
+            }
+
+            var updatedCategory = _cardsRepository.EditIndividualCard(id, cards);
+
+            return Ok(updatedCategory);
+
+        }
+
+        [HttpDelete("cards/{id}")]
+        public IActionResult DeleteCard(Guid id)
+        {
+            var result = _cardsRepository.DeleteCard(id);
+            if (result)
+            {
+                return Ok($"{id} deleted");
+            }
+            else return NotFound($"{id} not found");
         }
     }
 }

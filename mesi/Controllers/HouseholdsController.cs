@@ -9,7 +9,7 @@ using mesi.DataAccess;
 
 namespace mesi.Controllers
 {
-    [Route("api/households/dash")]
+    [Route("api/dash")]
     [ApiController]
     public class HouseholdsWithDetailController : ControllerBase
     {
@@ -29,6 +29,40 @@ namespace mesi.Controllers
                 return Ok(result);
             }
             else return NotFound($"{userId} does not belong to any households");
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetHousehold(Guid id)
+        {
+            var result = _householdsRepository.GetHouseholdWithDetails(id);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else return NotFound($"{id} does not belong to any households");
+        }
+
+        [HttpPost]
+        public IActionResult CreateHousehold(Household household)
+        {
+            _householdsRepository.AddHousehold(household);
+            return Created($"/api/dash/{household.Id}", household);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateHousehold(Guid id, Household household)
+        {
+            var cardToUpdate = _householdsRepository.GetHousehold(id);
+
+            if (cardToUpdate == null)
+            {
+                return NotFound($"Could not find a category with the id {id} to update");
+            }
+
+            var updatedHousehold = _householdsRepository.EditHousehold(id, household);
+
+            return Ok(updatedHousehold);
+
         }
     }
 }

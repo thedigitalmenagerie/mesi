@@ -35,5 +35,59 @@ namespace mesi.DataAccess
             var result = db.Query<HouseholdWithDetail>(sql, parameter);
             return result;
         }
+
+        internal Household GetHousehold(Guid id)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT * FROM Households
+                            WHERE Id = @Id";
+            var parameter = new
+            {
+                Id = id,
+            };
+            var result = db.QuerySingleOrDefault<Household>(sql, parameter);
+            return result;
+        }
+
+        internal void AddHousehold(Household household)
+        {
+            using var db = new SqlConnection(_connectionString);
+            Guid id = new Guid();
+
+            var sql = @"INSERT INTO [dbo].[Households]
+                        ([HouseholdName], 
+                         [HasPets],
+                         [HasKids],
+                         [HasRomance],
+                         [StepId])
+                        OUTPUT inserted.Id
+                        VALUES
+                       (@HouseholdName,
+                        @HasPets,
+                        @HasKids,
+                        @HasRomance,
+                        @StepId)";
+
+
+            id = db.ExecuteScalar<Guid>(sql, household);
+            household.Id = id;
+        }
+
+        internal Household EditHousehold(Guid id, Household household)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"UPDATE Households
+                        SET HouseholdName = @HouseholdName,
+                            HasPets = @HasPets,
+                            HasKids = @HasKids,
+                            HasRomance = @HasRomance,
+                            StepId = @StepId
+                        WHERE Id = @Id";
+
+            household.Id = id;
+            var updatedCard = db.QuerySingleOrDefault<Household>(sql, household);
+
+            return household;
+        }
     }
 }

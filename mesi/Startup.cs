@@ -37,6 +37,8 @@ namespace mesi
             services.AddTransient<CategoryTypesRepository>();
             services.AddTransient<HouseholdsRepository>();
             services.AddTransient<CardsRepository>();
+            services.AddTransient<UserDeclarationRepository>();
+            services.AddTransient<HouseholdMembersRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

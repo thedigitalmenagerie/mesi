@@ -33,7 +33,7 @@ namespace mesi.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllNeedTypes()
+        public IActionResult GetAllCategoryTypes()
         {
             var result = _categoryTypesRepository.GetAll();
             if (result.Count() >= 0)

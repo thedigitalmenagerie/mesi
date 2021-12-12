@@ -1666,7 +1666,7 @@ INSERT INTO Cards (HouseholdId, CardName, CardImage, CardDefinition, Conception,
 				'Are your pets healthy, groomed, and socialized?',
 				'1', (Select Id from NeedTypes where NeedTypeName = 'Pets'), (Select Id from CategoryTypes where CategoryTypeName = 'Magic'));
 
-INSERT INTO UserValues (UserId, CardId)
+INSERT INTO UserDeclaration (UserId, CardId)
 	VALUES ((Select Id from Users where FirstName = 'Honey-Rae'), (Select Id from Cards where CardName = 'Cleaning' and HouseholdId = (Select Id from Households where HouseholdName = 'Swan House'))),
 		((Select Id from Users where FirstName = 'Honey-Rae'), (Select Id from Cards where CardName = 'Dishes' and HouseholdId = (Select Id from Households where HouseholdName = 'Swan House'))),
 		((Select Id from Users where FirstName = 'Honey-Rae'), (Select Id from Cards where CardName = 'Dry Cleaning' and HouseholdId = (Select Id from Households where HouseholdName = 'Swan House'))),

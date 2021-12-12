@@ -216,10 +216,9 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[UserValues](
+CREATE TABLE [dbo].[UserDeclaration](
 	[Id] [uniqueidentifier] NOT NULL,
 	[UserId] [uniqueidentifier] NOT NULL,
-	[HouseholdId] [uniqueidentifier] NOT NULL,
 	[CardId] [uniqueidentifier] NOT NULL,
 	[UserValues] [bit] NULL,
 	[UserDeletes] [bit] NULL,
@@ -243,11 +242,11 @@ ALTER TABLE [dbo].[HouseholdMembers] ADD  DEFAULT (newid()) FOR [Id]
 GO
 ALTER TABLE [dbo].[Cards] ADD  DEFAULT (newid()) FOR [Id]
 GO
-ALTER TABLE [dbo].[UserValues] ADD  DEFAULT (newid()) FOR [Id]
+ALTER TABLE [dbo].[UserDeclaration] ADD  DEFAULT (newid()) FOR [Id]
 GO
-ALTER TABLE [dbo].[UserValues] ADD  DEFAULT ((NULL)) FOR [UserValues]
+ALTER TABLE [dbo].[UserDeclaration] ADD  DEFAULT ((NULL)) FOR [UserValues]
 GO
-ALTER TABLE [dbo].[UserValues] ADD  DEFAULT ((NULL)) FOR [UserDeletes]
+ALTER TABLE [dbo].[UserDeclaration] ADD  DEFAULT ((NULL)) FOR [UserDeletes]
 GO
 ALTER TABLE [dbo].[HouseholdMembers]  WITH CHECK ADD  CONSTRAINT [FK_HouseholdMembers_Users] FOREIGN KEY([UserId])
 REFERENCES [dbo].[Users] ([Id])
@@ -284,20 +283,15 @@ REFERENCES [dbo].[CategoryTypes] ([Id])
 GO
 ALTER TABLE [dbo].[Cards] CHECK CONSTRAINT [FK_Cards_CategoryTypes]
 GO
-ALTER TABLE [dbo].[UserValues]  WITH CHECK ADD  CONSTRAINT [FK_UserValues_Users] FOREIGN KEY([UserId])
+ALTER TABLE [dbo].[UserDeclaration]  WITH CHECK ADD  CONSTRAINT [FK_UserDeclaration_Users] FOREIGN KEY([UserId])
 REFERENCES [dbo].[Users] ([Id])
 GO
-ALTER TABLE [dbo].[UserValues] CHECK CONSTRAINT [FK_UserValues_Users]
+ALTER TABLE [dbo].[UserDeclaration] CHECK CONSTRAINT [FK_UserDeclaration_Users]
 GO
-ALTER TABLE [dbo].[UserValues]  WITH CHECK ADD  CONSTRAINT [FK_UserValues_Cards] FOREIGN KEY([CardId])
+ALTER TABLE [dbo].[UserDeclaration]  WITH CHECK ADD  CONSTRAINT [FK_UserDeclaration_Cards] FOREIGN KEY([CardId])
 REFERENCES [dbo].[Cards] ([Id])
 GO
-ALTER TABLE [dbo].[UserValues] CHECK CONSTRAINT [FK_UserValues_Cards]
-GO
-ALTER TABLE [dbo].[UserValues]  WITH CHECK ADD  CONSTRAINT [FK_UserValues_Households] FOREIGN KEY ([HouseholdId])
-REFERENCES [dbo].[Households] ([Id])
-GO
-ALTER TABLE [dbo].[UserValues] CHECK CONSTRAINT [FK_UserValues_Households]
+ALTER TABLE [dbo].[UserDeclaration] CHECK CONSTRAINT [FK_UserDeclaration_Cards]
 GO
 USE [master]
 GO
