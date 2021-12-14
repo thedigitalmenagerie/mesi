@@ -13,6 +13,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using mesi;
 using mesi.DataAccess;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace mesi
 {
@@ -39,7 +41,26 @@ namespace mesi
             services.AddTransient<CardsRepository>();
             services.AddTransient<UserDeclarationRepository>();
             services.AddTransient<HouseholdMembersRepository>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+
+                .AddJwtBearer(options =>
+                {
+                    options.IncludeErrorDetails = true;
+                    options.Authority = "https://securetoken.google.com/lll-emporium";
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateLifetime = true,
+                        ValidateAudience = true,
+                        ValidateIssuer = true,
+                        ValidAudience = "lll-emporium",
+                        ValidIssuer = "https://securetoken.google.com/lll-emporium"
+                    };
+                });
+
             services.AddControllers();
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "MESI", Version = "v1" });
@@ -56,9 +77,13 @@ namespace mesi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MESI v1"));
             }
 
+            app.UseCors(cfg => cfg.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

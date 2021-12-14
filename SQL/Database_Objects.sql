@@ -254,7 +254,7 @@ GO
 ALTER TABLE [dbo].[HouseholdMembers] CHECK CONSTRAINT [FK_HouseholdMembers_Users]
 GO
 ALTER TABLE [dbo].[HouseholdMembers] WITH CHECK ADD CONSTRAINT [FK_HouseholdMembers_Households] FOREIGN KEY ([HouseholdId])
-REFERENCES [dbo].[Households] ([Id])
+REFERENCES [dbo].[Households] ([Id]) ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[HouseholdMembers] CHECK CONSTRAINT [FK_HouseholdMembers_Households]
 GO
@@ -264,7 +264,7 @@ GO
 ALTER TABLE [dbo].[Households] CHECK CONSTRAINT [FK_Households_Steps]
 GO
 ALTER TABLE [dbo].[Cards] WITH CHECK ADD CONSTRAINT [FK_Cards_Households] FOREIGN KEY ([HouseholdId])
-REFERENCES [dbo].[Households] ([Id])
+REFERENCES [dbo].[Households] ([Id]) ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[Cards] CHECK CONSTRAINT [FK_Cards_Households]
 GO
@@ -289,7 +289,7 @@ GO
 ALTER TABLE [dbo].[UserDeclaration] CHECK CONSTRAINT [FK_UserDeclaration_Users]
 GO
 ALTER TABLE [dbo].[UserDeclaration]  WITH CHECK ADD  CONSTRAINT [FK_UserDeclaration_Cards] FOREIGN KEY([CardId])
-REFERENCES [dbo].[Cards] ([Id])
+REFERENCES [dbo].[Cards] ([Id]) ON DELETE CASCADE
 GO
 ALTER TABLE [dbo].[UserDeclaration] CHECK CONSTRAINT [FK_UserDeclaration_Cards]
 GO
