@@ -56,5 +56,16 @@ namespace mesi.DataAccess
             return user;
         }
 
+        internal Users GetByEmail(string email)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"Select * From Users where Email = @Email";
+            var parameter = new
+            {
+                Email = email
+            };
+            var user = db.QuerySingleOrDefault<Users>(sql, parameter);
+            return user;
+        }
     }
 }

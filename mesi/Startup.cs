@@ -47,14 +47,14 @@ namespace mesi
                 .AddJwtBearer(options =>
                 {
                     options.IncludeErrorDetails = true;
-                    options.Authority = "https://securetoken.google.com/lll-emporium";
+                    options.Authority = "https://securetoken.google.com/mesi-604b5";
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateLifetime = true,
                         ValidateAudience = true,
                         ValidateIssuer = true,
-                        ValidAudience = "lll-emporium",
-                        ValidIssuer = "https://securetoken.google.com/lll-emporium"
+                        ValidAudience = "mesi-604b5",
+                        ValidIssuer = "https://securetoken.google.com/mesi-604b5"
                     };
                 });
 

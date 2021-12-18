@@ -50,5 +50,16 @@ namespace mesi.Controllers
             return Created($"/api/users/{newUser.Id}", newUser);
         }
 
+        [HttpGet("email/{email}")]
+        public IActionResult GetUserByEmail(string email)
+        {
+            var user = _usersRepository.GetByEmail(email);
+            if (user == null)
+            {
+                return NotFound("No user found.");
+            }
+            return Ok(user);
+        }
+
     }
 }

@@ -20,7 +20,7 @@ namespace mesi.Controllers
             _householdsRepository = householdsRepo;
         }
 
-        [HttpGet("{userId}")]
+        [HttpGet("byUser/{userId}")]
         public IActionResult GetHouseholds(Guid userId)
         {
             var result = _householdsRepository.GetHouseholdWithDetails(userId);
