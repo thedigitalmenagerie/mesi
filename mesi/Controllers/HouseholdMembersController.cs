@@ -53,6 +53,7 @@ namespace mesi.Controllers
             else return NotFound($"No card with id {id}");
         }
 
+
         [HttpGet("byUser/{userId}")]
         public IActionResult GetMemberByUserId(Guid userId)
         {
