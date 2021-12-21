@@ -37,6 +37,8 @@ namespace mesi.Models
            public string Planning { get; set; }
            public string Execution { get; set; }
            public string MSOC { get; set; }
+           public string CategoryName { get; set; }
+           public string NeedTypeName { get; set; }
            public Boolean DailyGrind { get; set; }
        }
 }
