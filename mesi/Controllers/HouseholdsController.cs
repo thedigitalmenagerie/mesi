@@ -34,7 +34,7 @@ namespace mesi.Controllers
         [HttpGet("{id}")]
         public IActionResult GetHousehold(Guid id)
         {
-            var result = _householdsRepository.GetHouseholdWithDetails(id);
+            var result = _householdsRepository.GetHousehold(id);
             if (result != null)
             {
                 return Ok(result);

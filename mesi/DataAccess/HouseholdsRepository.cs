@@ -36,7 +36,7 @@ namespace mesi.DataAccess
             return result;
         }
 
-        internal Household GetHousehold(Guid id)
+        internal IEnumerable<Household> GetHousehold(Guid id)
         {
             using var db = new SqlConnection(_connectionString);
             var sql = @"SELECT * FROM Households
@@ -45,7 +45,7 @@ namespace mesi.DataAccess
             {
                 Id = id,
             };
-            var result = db.QuerySingleOrDefault<Household>(sql, parameter);
+            var result = db.Query<Household>(sql, parameter);
             return result;
         }
 
