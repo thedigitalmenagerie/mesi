@@ -89,5 +89,25 @@ namespace mesi.DataAccess
 
             return household;
         }
+
+        internal bool DeleteHousehold(Guid id)
+        {
+            bool returnVal = false;
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"DELETE FROM Households
+                        OUTPUT Deleted.Id
+                        WHERE Id = @Id";
+            var parameters = new
+            {
+                Id = id
+            };
+
+            var result = db.Query(sql, parameters);
+            if (result.Count() > 0)
+            {
+                returnVal = true;
+            }
+            return returnVal;
+        }
     }
 }

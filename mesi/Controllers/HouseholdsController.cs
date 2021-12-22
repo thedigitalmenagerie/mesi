@@ -64,5 +64,16 @@ namespace mesi.Controllers
             return Ok(updatedHousehold);
 
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteHousehold(Guid id)
+        {
+            var result = _householdsRepository.DeleteHousehold(id);
+            if (result)
+            {
+                return Ok($"{id} deleted");
+            }
+            else return NotFound($"{id} not found");
+        }
     }
 }
