@@ -83,7 +83,7 @@ namespace mesi.DataAccess
         internal void AddIndividualCard(Cards cards)
         {
             using var db = new SqlConnection(_connectionString);
-            Guid id = new Guid();
+            Guid cardId = new Guid();
 
             var sql = @"INSERT INTO [dbo].[Cards]
                         ([HouseholdId],
@@ -113,11 +113,11 @@ namespace mesi.DataAccess
                         @MSOC,
                         @DailyGrind)";
 
-            id = db.ExecuteScalar<Guid>(sql, cards);
-            cards.Id = id;
+            cardId = db.ExecuteScalar<Guid>(sql, cards);
+            cards.CardId = cardId;
         }
 
-        internal Cards EditIndividualCard(Guid id, Cards cards)
+        internal Cards EditIndividualCard(Guid cardId, Cards cards)
         {
             using var db = new SqlConnection(_connectionString);
             var sql = @"UPDATE Cards
@@ -135,7 +135,7 @@ namespace mesi.DataAccess
                             DailyGrind = @DailyGrind
                         WHERE Id = @Id";
 
-            cards.Id = id;
+            cards.CardId = cardId;
             var updatedCard = db.QuerySingleOrDefault<Cards>(sql, cards);
 
             return updatedCard;

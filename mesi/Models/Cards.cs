@@ -25,7 +25,7 @@ namespace mesi.Models
 
        public class Cards
        {
-           public Guid Id { get; set; }
+           public Guid CardId { get; set; }
            public Guid HouseholdId { get; set; }
            public Guid? AssignedUserId { get; set; }
            public Guid NeedTypeId { get; set; }
@@ -37,8 +37,6 @@ namespace mesi.Models
            public string Planning { get; set; }
            public string Execution { get; set; }
            public string MSOC { get; set; }
-           public string CategoryName { get; set; }
-           public string NeedTypeName { get; set; }
            public Boolean DailyGrind { get; set; }
        }
 }

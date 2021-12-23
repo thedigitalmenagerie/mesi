@@ -42,22 +42,22 @@ namespace mesi.Controllers
             else return NotFound($"No card with id {cardId}");
         }
 
-        [HttpPost("cards/")]
+        [HttpPost("cards")]
         public IActionResult CreateIndividualCard(Cards cards)
         {
             _cardsRepository.AddIndividualCard(cards);
-            return Created($"/api/dash/{cards.Id}", cards);
+            return Created($"/api/dash/{cards.CardId}", cards);
         }
 
-        [HttpGet("cards/{id}")]
-        public IActionResult GetSingleCardByCardId(Guid id)
+        [HttpGet("cards/{cardId}")]
+        public IActionResult GetSingleCardByCardId(Guid cardId)
         {
-            var result = _cardsRepository.GetSingleCard(id);
+            var result = _cardsRepository.GetSingleCard(cardId);
             if (result != null)
             {
                 return Ok(result);
             }
-            else return NotFound($"No card with id {id}");
+            else return NotFound($"No card with id {cardId}");
         }
 
         [HttpGet("cardsByHH/{householdId}")]
