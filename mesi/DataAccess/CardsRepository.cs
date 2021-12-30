@@ -21,7 +21,7 @@ namespace mesi.DataAccess
         internal IEnumerable<CardsWithDetail> GetCardsWithDetails(Guid householdId)
         {
             using var db = new SqlConnection(_connectionString);
-            var sql = @"SELECT C.Id AS CardId, C.HouseholdId, C.NeedTypeId, C.CategoryTypeId, C.CardName,
+            var sql = @"SELECT C.Id AS CardId, C.AssignedUserId, C.HouseholdId, C.NeedTypeId, C.CategoryTypeId, C.CardName,
 				                C.CardImage, C.CardDefinition, C.Conception, C.Planning, C. Execution, C.MSOC, C.DailyGrind,
 				                 N.NeedTypeName, CT.CategoryTypeName
 	                        FROM Cards C
@@ -39,7 +39,7 @@ namespace mesi.DataAccess
         internal CardsWithDetail GetSingleCardWithDetails(Guid cardId)
         {
             using var db = new SqlConnection(_connectionString);
-            var sql = @"SELECT C.Id AS CardId, C.HouseholdId, C.NeedTypeId, C.CategoryTypeId, C.CardName,
+            var sql = @"SELECT C.Id AS CardId, C.AssignedUserId, C.HouseholdId, C.NeedTypeId, C.CategoryTypeId, C.CardName,
 				                C.CardImage, C.CardDefinition, C.Conception, C.Planning, C. Execution, C.MSOC, C.DailyGrind,
 				                N.NeedTypeName, CT.CategoryTypeName
 	                        FROM Cards C
@@ -133,7 +133,7 @@ namespace mesi.DataAccess
                             Execution = @Execution,
                             MSOC = @MSOC,
                             DailyGrind = @DailyGrind
-                        WHERE Id = @Id";
+                        WHERE Id = @CardId";
 
             cards.CardId = cardId;
             var updatedCard = db.QuerySingleOrDefault<Cards>(sql, cards);
@@ -159,6 +159,30 @@ namespace mesi.DataAccess
                 returnVal = true;
             }
             return returnVal;
+        }
+
+        internal List<CardsWithDetail> getAllButDeclarations(Guid userId, Guid houseHoldId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            //First get a list of cards that the user has declared as their values
+            var firstSql = @"SELECT C.Id as CardID, C.HouseholdId as HouseHoldId, C.NeedTypeId as NeedTypeId, C.CategoryTypeId as CategoryTypeId, C.AssignedUserId as AssignedUserId, C.CardName as CardName, C.CardImage as CardImage, C.CardDefinition as CardDefinition, C.Conception as Conception, C.Planning as Planning, C.Execution as Execution, C.MSOC as MSOC, C.DailyGrind as DailyGrind, N.NeedTypeName, CT.CategoryTypeName
+                                FROM CARDS C
+                                LEFT JOIN UserDeclaration D
+                                ON C.Id = D.CardID
+		                        JOIN NeedTypes N ON N.Id = C.NeedTypeId
+		                        JOIN CategoryTypes CT ON CT.Id = C.CategoryTypeId
+                                WHERE (D.UserID IS NULL AND C.HouseholdId =@houseHoldId) OR (D.UserID NOT LIKE @userID AND C.HouseholdId=@houseHoldId)";
+
+            var paramObj = new
+            {
+                userId,
+                houseHoldId
+            };
+
+            var listOfDeclarations = db.Query<CardsWithDetail>(firstSql, paramObj).ToList();
+
+            return listOfDeclarations;
         }
 
 	}

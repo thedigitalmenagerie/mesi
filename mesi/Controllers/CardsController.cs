@@ -97,5 +97,11 @@ namespace mesi.Controllers
             }
             else return NotFound($"{id} not found");
         }
+
+        [HttpGet("cards/declarations/{userId}/{houseHoldId}")]
+        public List<CardsWithDetail> GetCardDecl(Guid userId, Guid houseHoldId)
+        {
+           return _cardsRepository.getAllButDeclarations(userId, houseHoldId);
+        }
     }
 }

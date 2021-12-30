@@ -11,6 +11,7 @@ namespace mesi.Models
         public Guid HouseholdId { get; set; }
         public Guid NeedTypeId { get; set; }
         public Guid CategoryTypeId { get; set; }
+        public Guid AssignedUserId { get; set; }
         public string CardName { get; set; }
         public string CardImage { get; set; }
         public string CardDefinition { get; set; }

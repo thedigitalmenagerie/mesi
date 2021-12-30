@@ -31,7 +31,7 @@ namespace mesi.Controllers
             else return NotFound($"No user value with id {id}");
         }
 
-        [HttpGet("{cardId}")]
+        [HttpGet("{userId}/{cardId}")]
         public IActionResult GetUserDeclarationByCardIdAndUserId(Guid userId, Guid cardId)
         {
             var result = _userDeclarationRepository.GetByUserandCard(userId, cardId);
