@@ -54,6 +54,22 @@ namespace mesi.DataAccess
             return result;
         }
 
+        internal IEnumerable<HouseholdMembersWithUserInfo> GetByHouseholdIdWithUserInfo(Guid householdId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"SELECT M.Id, M.UserId, M.HouseholdId, M.CommunityAgreement, M.NewVow, M.Redeal, U.FirstName, U.LastName, U.Email
+                        FROM HouseholdMembers M
+	                        JOIN Users U on M.UserId = U.Id
+                        WHERE HouseholdId = @HouseholdId";
+            var parameter = new
+            {
+                HouseholdId = householdId,
+            };
+            var result = db.Query<HouseholdMembersWithUserInfo>(sql, parameter);
+            return result;
+        }
+
         internal IEnumerable<HouseholdMembers> GetByUserId(Guid userId)
         {
             using var db = new SqlConnection(_connectionString);

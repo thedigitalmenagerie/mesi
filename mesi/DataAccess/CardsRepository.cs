@@ -27,7 +27,7 @@ namespace mesi.DataAccess
 	                        FROM Cards C
 		                        JOIN NeedTypes N ON N.Id = C.NeedTypeId
 		                        JOIN CategoryTypes CT ON CT.Id = C.CategoryTypeId
-                            WHERE HouseholdId = @HouseholdId";
+                            WHERE HouseholdId = @HouseholdId and AssignedUserId IS NULL";
             var parameter = new
             {
                 HouseholdId = householdId,

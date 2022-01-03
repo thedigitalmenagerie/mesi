@@ -42,6 +42,17 @@ namespace mesi.Controllers
             else return NotFound($"No card with id {householdId}");
         }
 
+        [HttpGet("byHouseholdWithUserInfo/{householdId}")]
+        public IActionResult GetCardByHHIdWithUserInfo(Guid householdId)
+        {
+            var result = _householdMembersRepository.GetByHouseholdIdWithUserInfo(householdId);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else return NotFound($"No card with id {householdId}");
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetMemberById(Guid id)
         {
