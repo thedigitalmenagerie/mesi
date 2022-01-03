@@ -50,6 +50,22 @@ namespace mesi.DataAccess
             return result;
         }
 
+        internal IEnumerable<UserDeclaration> GetByCard(Guid cardId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"SELECT * FROM UserDeclaration
+                                WHERE CardId = @CardId";
+
+            var parameter = new
+            {
+                CardId = cardId
+            };
+
+            var result = db.Query<UserDeclaration>(sql, parameter);
+            return result;
+        }
+
         internal void AddUserDeclaration(UserDeclaration userDeclaration)
         {
             using var db = new SqlConnection(_connectionString);

@@ -38,6 +38,13 @@ namespace mesi.Controllers
             return Ok(result);
         }
 
+        [HttpGet("byCard/{cardId}")]
+        public IActionResult GetUserDeclarationByCardId(Guid cardId)
+        {
+            var result = _userDeclarationRepository.GetByCard(cardId);
+            return Ok(result);
+        }
+
         [HttpPost]
         public IActionResult CreateUserDeclaration(UserDeclaration userDeclaration)
         {
