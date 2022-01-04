@@ -185,13 +185,12 @@ namespace mesi.DataAccess
             using var db = new SqlConnection(_connectionString);
 
             //First get a list of cards that the user has declared as their values
-            var firstSql = @"SELECT DISTINCT C.Id as CardID, C.HouseholdId as HouseHoldId, C.NeedTypeId as NeedTypeId, C.CategoryTypeId as CategoryTypeId, C.AssignedUserId as AssignedUserId, C.CardName as CardName, C.CardImage as CardImage, C.CardDefinition as CardDefinition, C.Conception as Conception, C.Planning as Planning, C.Execution as Execution, C.MSOC as MSOC, C.DailyGrind as DailyGrind, N.NeedTypeName, CT.CategoryTypeName, D.UserId
+            var firstSql = @"SELECT DISTINCT C.Id as CardID, C.HouseholdId as HouseHoldId, C.NeedTypeId as NeedTypeId, C.CategoryTypeId as CategoryTypeId, C.AssignedUserId as AssignedUserId, C.CardName as CardName, C.CardImage as CardImage, C.CardDefinition as CardDefinition, C.Conception as Conception, C.Planning as Planning, C.Execution as Execution, C.MSOC as MSOC, C.DailyGrind as DailyGrind, N.NeedTypeName, CT.CategoryTypeName
                                 FROM CARDS C
-                                LEFT JOIN UserDeclaration D
-                                ON C.Id = D.CardID
 		                        JOIN NeedTypes N ON N.Id = C.NeedTypeId
 		                        JOIN CategoryTypes CT ON CT.Id = C.CategoryTypeId
-                                WHERE (D.UserID IS NULL AND C.HouseholdId =@houseHoldId) OR (D.UserID NOT LIKE @userID AND C.HouseholdId=@houseHoldId)";
+                                WHERE C.id not in (select CardId from UserDeclaration D where UserId = @UserId)
+								  and C.HouseholdId = @HouseHoldId";
 
             var paramObj = new
             {
