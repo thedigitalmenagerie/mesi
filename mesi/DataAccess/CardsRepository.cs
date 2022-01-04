@@ -36,6 +36,25 @@ namespace mesi.DataAccess
             return result;
         }
 
+        internal IEnumerable<CardsWithDetail> GetCardsWithDetailsByAssignedUser(Guid householdId, Guid assignedUserId)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT C.Id AS CardId, C.AssignedUserId, C.HouseholdId, C.NeedTypeId, C.CategoryTypeId, C.CardName,
+				                C.CardImage, C.CardDefinition, C.Conception, C.Planning, C. Execution, C.MSOC, C.DailyGrind,
+				                 N.NeedTypeName, CT.CategoryTypeName
+	                        FROM Cards C
+		                        JOIN NeedTypes N ON N.Id = C.NeedTypeId
+		                        JOIN CategoryTypes CT ON CT.Id = C.CategoryTypeId
+                            WHERE HouseholdId = @HouseholdId and AssignedUserId = @AssignedUserId";
+            var parameter = new
+            {
+                HouseholdId = householdId,
+                AssignedUserId = assignedUserId
+            };
+            var result = db.Query<CardsWithDetail>(sql, parameter);
+            return result;
+        }
+
         internal CardsWithDetail GetSingleCardWithDetails(Guid cardId)
         {
             using var db = new SqlConnection(_connectionString);
@@ -184,6 +203,5 @@ namespace mesi.DataAccess
 
             return listOfDeclarations;
         }
-
-	}
+    }
 }
