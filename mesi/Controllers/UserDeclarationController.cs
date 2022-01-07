@@ -45,6 +45,20 @@ namespace mesi.Controllers
             return Ok(result);
         }
 
+        [HttpGet("byCardUV/{cardId}")]
+        public IActionResult GetUserDeclarationByCardIdUv(Guid cardId)
+        {
+            var result = _userDeclarationRepository.GetByCardUV(cardId);
+            return Ok(result);
+        }
+
+        [HttpGet("byUser/{userId}")]
+        public IActionResult GetUserDeclarationByUserId(Guid userId)
+        {
+            var result = _userDeclarationRepository.GetByUser(userId);
+            return Ok(result);
+        }
+
         [HttpPost]
         public IActionResult CreateUserDeclaration(UserDeclaration userDeclaration)
         {

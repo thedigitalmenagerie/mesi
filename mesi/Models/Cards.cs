@@ -26,7 +26,7 @@ namespace mesi.Models
 
        public class Cards
        {
-           public Guid CardId { get; set; }
+           public Guid Id { get; set; }
            public Guid HouseholdId { get; set; }
            public Guid? AssignedUserId { get; set; }
            public Guid NeedTypeId { get; set; }

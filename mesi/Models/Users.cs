@@ -13,4 +13,5 @@ namespace mesi.Models
         public string Email { get; set; }
         public string ProfilePicture { get; set; }
     }
+
 }

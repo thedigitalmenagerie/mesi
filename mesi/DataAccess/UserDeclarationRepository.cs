@@ -66,6 +66,40 @@ namespace mesi.DataAccess
             return result;
         }
 
+        internal IEnumerable<UserDeclarationWithPicture> GetByCardUV(Guid cardId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"SELECT D.Id, D.UserId, D.UserValues, D.UserDeletes, U.ProfilePicture FROM UserDeclaration D
+	                        JOIN Users U on U.Id = D.UserId
+	                    WHERE D.UserValues = 1
+                        AND D.CardId = @CardId";
+
+            var parameter = new
+            {
+                CardId = cardId
+            };
+
+            var result = db.Query<UserDeclarationWithPicture>(sql, parameter);
+            return result;
+        }
+
+        internal IEnumerable<UserDeclaration> GetByUser(Guid userId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var sql = @"SELECT * FROM UserDeclaration
+                                WHERE UserId = @UserId";
+
+            var parameter = new
+            {
+                UserId = userId
+            };
+
+            var result = db.Query<UserDeclaration>(sql, parameter);
+            return result;
+        }
+
         internal void AddUserDeclaration(UserDeclaration userDeclaration)
         {
             using var db = new SqlConnection(_connectionString);

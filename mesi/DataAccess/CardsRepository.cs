@@ -99,6 +99,42 @@ namespace mesi.DataAccess
             return result;
         }
 
+        internal IEnumerable<Cards> GetDGCardsforValueChart(Guid householdId, Guid categoryTypeId)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT *
+                            FROM Cards
+                        WHERE CategoryTypeId = @categoryTypeId
+                        and DailyGrind = 1
+                        and HouseholdId = @householdId";
+            var parameter = new
+            {
+                HouseholdId = householdId,
+                CategoryTypeId = categoryTypeId,
+            };
+            var result = db.Query<Cards>(sql, parameter);
+            return result;
+        }
+
+        internal IEnumerable<Cards> GetNONDGCardsforValueChart(Guid householdId, Guid categoryTypeId)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"SELECT *
+                            FROM Cards
+                        WHERE CategoryTypeId = @categoryTypeId
+                        and DailyGrind = 0
+                        and HouseholdId = @householdId";
+            var parameter = new
+            {
+                HouseholdId = householdId,
+                CategoryTypeId = categoryTypeId,
+            };
+            var result = db.Query<Cards>(sql, parameter);
+            return result;
+        }
+
+
+
         internal void AddIndividualCard(Cards cards)
         {
             using var db = new SqlConnection(_connectionString);
@@ -133,7 +169,7 @@ namespace mesi.DataAccess
                         @DailyGrind)";
 
             cardId = db.ExecuteScalar<Guid>(sql, cards);
-            cards.CardId = cardId;
+            cards.Id = cardId;
         }
 
         internal Cards EditIndividualCard(Guid cardId, Cards cards)
@@ -154,7 +190,7 @@ namespace mesi.DataAccess
                             DailyGrind = @DailyGrind
                         WHERE Id = @CardId";
 
-            cards.CardId = cardId;
+            cards.Id = cardId;
             var updatedCard = db.QuerySingleOrDefault<Cards>(sql, cards);
 
             return updatedCard;

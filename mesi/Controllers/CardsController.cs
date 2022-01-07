@@ -57,7 +57,7 @@ namespace mesi.Controllers
         public IActionResult CreateIndividualCard(Cards cards)
         {
             _cardsRepository.AddIndividualCard(cards);
-            return Created($"/api/dash/{cards.CardId}", cards);
+            return Created($"/api/dash/{cards.Id}", cards);
         }
 
         [HttpGet("cards/{cardId}")]
@@ -75,6 +75,28 @@ namespace mesi.Controllers
         public IActionResult GetCardByHHId(Guid householdId)
         {
             var result = _cardsRepository.GetSingleCardByHHId(householdId);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else return NotFound($"No card with id {householdId}");
+        }
+
+        [HttpGet("dgCards/{householdId}/{categoryTypeId}")]
+        public IActionResult GetDgValueChart(Guid householdId, Guid categoryTypeId)
+        {
+            var result = _cardsRepository.GetDGCardsforValueChart(householdId, categoryTypeId);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            else return NotFound($"No card with id {householdId}");
+        }
+
+        [HttpGet("nondgCards/{householdId}/{categoryTypeId}")]
+        public IActionResult GetNonDGValueChart(Guid householdId, Guid categoryTypeId)
+        {
+            var result = _cardsRepository.GetNONDGCardsforValueChart(householdId, categoryTypeId);
             if (result != null)
             {
                 return Ok(result);
