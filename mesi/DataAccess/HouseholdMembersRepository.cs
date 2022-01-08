@@ -58,7 +58,7 @@ namespace mesi.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
 
-            var sql = @"SELECT M.Id, M.UserId, M.HouseholdId, M.CommunityAgreement, M.NewVow, M.Redeal, U.FirstName, U.LastName, U.Email
+            var sql = @"SELECT M.Id, M.UserId, M.HouseholdId, M.CommunityAgreement, M.NewVow, M.Redeal, U.FirstName, U.LastName, U.Email, U.ProfilePicture
                         FROM HouseholdMembers M
 	                        JOIN Users U on M.UserId = U.Id
                         WHERE HouseholdId = @HouseholdId";

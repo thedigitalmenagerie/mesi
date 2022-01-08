@@ -172,7 +172,7 @@ namespace mesi.DataAccess
             cards.Id = cardId;
         }
 
-        internal Cards EditIndividualCard(Guid cardId, Cards cards)
+        internal Cards EditIndividualCard(Guid id, Cards cards)
         {
             using var db = new SqlConnection(_connectionString);
             var sql = @"UPDATE Cards
@@ -188,9 +188,9 @@ namespace mesi.DataAccess
                             Execution = @Execution,
                             MSOC = @MSOC,
                             DailyGrind = @DailyGrind
-                        WHERE Id = @CardId";
+                        WHERE Id = @Id";
 
-            cards.Id = cardId;
+            cards.Id = id;
             var updatedCard = db.QuerySingleOrDefault<Cards>(sql, cards);
 
             return updatedCard;

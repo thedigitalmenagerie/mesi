@@ -70,7 +70,7 @@ namespace mesi.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
 
-            var sql = @"SELECT D.Id, D.UserId, D.UserValues, D.UserDeletes, U.ProfilePicture FROM UserDeclaration D
+            var sql = @"SELECT D.Id, D. CardId, D.UserId, D.UserValues, D.UserDeletes, U.ProfilePicture FROM UserDeclaration D
 	                        JOIN Users U on U.Id = D.UserId
 	                    WHERE D.UserValues = 1
                         AND D.CardId = @CardId";
