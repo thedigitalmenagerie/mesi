@@ -53,3 +53,9 @@ https://github.com/thedigitalmenagerie
 10. Repeat user story 6-9 as needed.
 
 ### Screenshots of project:
+
+![image](https://user-images.githubusercontent.com/76716670/148667735-8c99fe10-ba6b-4c10-b74c-b42661959ace.png)
+![image](https://user-images.githubusercontent.com/76716670/148667762-27325ae3-3812-45c0-aafd-4a65c6982dc6.png)
+![image](https://user-images.githubusercontent.com/76716670/148668007-15743fa5-43e4-42f3-abae-b10be134eea7.png)
+![image](https://user-images.githubusercontent.com/76716670/148668018-549cc0d8-d765-4146-a991-8ac30ae41f2a.png)
+
