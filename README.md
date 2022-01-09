@@ -36,8 +36,10 @@ https://dbdiagram.io/d/61a9440a8c901501c0de3d05
 https://github.com/thedigitalmenagerie
 
 ### Link to Loom video walkthrough of application:
+https://www.loom.com/share/936f9cd09a4f4633bec8cbd031adc971
 
 ### Link to Capstone Prezi:
+https://prezi.com/view/jHyevG8CaVNS8ihXFJzl/
 
 ### User Stories:
 
